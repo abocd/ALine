@@ -1,5 +1,5 @@
 # ALine画线、标注插件
-[^简洁的轻弹窗,轻量,简单,也可以适用于手机哦]
+[^HTML划线]
 
 #####作者:aboc Email:mayinhua@gmail.com
 

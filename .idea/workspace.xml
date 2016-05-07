@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="de34b520-b2c0-45fe-a7d1-77f80c7a1648" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/README.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/demo.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ALine.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
     </list>
     <ignored path="ALine.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -32,8 +27,8 @@
       <file leaf-file-name="README.md" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.954717">
-              <caret line="115" column="76" selection-start-line="115" selection-start-column="76" selection-end-line="115" selection-end-column="76" />
+            <state vertical-scroll-proportion="0.02264151">
+              <caret line="1" column="8" selection-start-line="1" selection-start-column="8" selection-end-line="1" selection-end-column="8" />
               <folding />
             </state>
           </provider>
@@ -55,12 +50,12 @@
             <state vertical-scroll-proportion="-32.275864">
               <caret line="104" column="20" selection-start-line="104" selection-start-column="20" selection-end-line="104" selection-end-column="20" />
               <folding>
-                <marker date="1462613739348" expanded="true" signature="3076:3169" placeholder="..." />
-                <marker date="1462613739348" expanded="true" signature="3551:3644" placeholder="..." />
-                <marker date="1462613739348" expanded="true" signature="4046:4104" placeholder="..." />
-                <marker date="1462613739348" expanded="true" signature="7155:7190" placeholder="..." />
-                <marker date="1462613739348" expanded="true" signature="7541:7576" placeholder="..." />
-                <marker date="1462613739348" expanded="true" signature="10430:10444" placeholder="..." />
+                <marker date="1462614137898" expanded="true" signature="3076:3169" placeholder="..." />
+                <marker date="1462614137898" expanded="true" signature="3551:3644" placeholder="..." />
+                <marker date="1462614137898" expanded="true" signature="4046:4104" placeholder="..." />
+                <marker date="1462614137898" expanded="true" signature="7155:7190" placeholder="..." />
+                <marker date="1462614137898" expanded="true" signature="7541:7576" placeholder="..." />
+                <marker date="1462614137898" expanded="true" signature="10430:10444" placeholder="..." />
               </folding>
             </state>
           </provider>
@@ -82,8 +77,8 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/demo.html" />
         <option value="$PROJECT_DIR$/src/ALine.js" />
+        <option value="$PROJECT_DIR$/demo.html" />
         <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
@@ -304,12 +299,12 @@
         <state vertical-scroll-proportion="-32.275864">
           <caret line="104" column="20" selection-start-line="104" selection-start-column="20" selection-end-line="104" selection-end-column="20" />
           <folding>
-            <marker date="1462613739348" expanded="true" signature="3076:3169" placeholder="..." />
-            <marker date="1462613739348" expanded="true" signature="3551:3644" placeholder="..." />
-            <marker date="1462613739348" expanded="true" signature="4046:4104" placeholder="..." />
-            <marker date="1462613739348" expanded="true" signature="7155:7190" placeholder="..." />
-            <marker date="1462613739348" expanded="true" signature="7541:7576" placeholder="..." />
-            <marker date="1462613739348" expanded="true" signature="10430:10444" placeholder="..." />
+            <marker date="1462614137898" expanded="true" signature="3076:3169" placeholder="..." />
+            <marker date="1462614137898" expanded="true" signature="3551:3644" placeholder="..." />
+            <marker date="1462614137898" expanded="true" signature="4046:4104" placeholder="..." />
+            <marker date="1462614137898" expanded="true" signature="7155:7190" placeholder="..." />
+            <marker date="1462614137898" expanded="true" signature="7541:7576" placeholder="..." />
+            <marker date="1462614137898" expanded="true" signature="10430:10444" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -324,8 +319,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.954717">
-          <caret line="115" column="76" selection-start-line="115" selection-start-column="76" selection-end-line="115" selection-end-column="76" />
+        <state vertical-scroll-proportion="0.02264151">
+          <caret line="1" column="8" selection-start-line="1" selection-start-column="8" selection-end-line="1" selection-end-column="8" />
           <folding />
         </state>
       </provider>
