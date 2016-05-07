@@ -13,6 +13,7 @@
 
 ```javascript
 
+   <script type="text/javascript" src="src/jquery.min.js"></script>
    <script type="text/javascript" src="src/ALine.js"></script>
 ```
 
