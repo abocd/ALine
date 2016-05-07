@@ -285,9 +285,10 @@ function ALine(dom) {
         }
         return str;
     };
-    this.clear = function () {
-        $("." + this.class).remove();
-        $(".style" + this.class).remove();
+    this.clear = function (clearClass) {
+        clearClass = clearClass || this.class
+        $("." + clearClass).remove();
+        $(".style" + clearClass).remove();
         this.html = '';
         this.style = '';
         this.class = '';
