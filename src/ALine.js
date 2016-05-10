@@ -4,35 +4,111 @@
  */
 
 function ALine(dom) {
+    /**
+     * 用于绘线的html代码
+     * @type {string}
+     */
     this.html = '';
+    /**
+     * 所绘线的类
+     * @type {string}
+     */
     this.class = '';
+    /**
+     * 自定义样式
+     * @type {string}
+     */
     this.style = '';
+    /**
+     * 初始化样式
+     * @type {string}
+     */
     this.initStyle = '';
+    /**
+     * 起点坐标
+     * @type {Array}
+     */
     this.start = [];
+    /**
+     * 终点坐标
+     * @type {Array}
+     */
     this.stop = [];
+    /**
+     * 用户追加的类
+     * @type {string}
+     */
     this.appendClass = '';
+    /**
+     * 是否能拖动
+     * @type {boolean}
+     */
     this.canDrag = false;
+    /**
+     * 拖动的对象
+     * @type {{}}
+     */
     this.draging = {};
+    /**
+     * 拖动对象的类型 起点还是终点
+     * @type {string}
+     */
     this.dragObj = '';
-    this.overstep = false;
+    /**
+     * 是否可以画出当前dom外
+     * @type {boolean}
+     */
+    this.overStep = false;
+    /**
+     * 绘线后的回调函数
+     * @type {string}
+     */
     this.callback = '';
+    /**
+     * 点击线后的回调函数
+     * @type {string}
+     */
     this.clickCallback = '';
+    /**
+     * 在哪个dom上绘线
+     */
     this.dom = dom;
+    /**
+     * dom的宽度
+     * @type {*|jQuery}
+     */
     this.maxWidth = $(dom).width();
+    /**
+     * dom的高度
+     * @type {*|jQuery}
+     */
     this.maxHeight = $(dom).height();
+    /**
+     * 起点、终点的参数
+     * @type {{}}
+     */
     this.pointParam = {};
+    /**
+     * 最后执行的方法
+     * @type {string}
+     */
     this.method = '';
     //var o = this;
     if( $(dom).css("position") == "relative" ){
         $(dom).css("position", "relative");
     }
+    /**
+     * 初始化
+     * @param param
+     * @returns {ALine}
+     */
     this.init = function (param) { //color,Class,appendClass
         param = param || {};
         var color = param.color || '#666';
         var oldClass = param.oldClass || this.rand(6);
         var appendClass = param.appendClass || '';
-        if(typeof param.overstep != "undefined"){
-            this.overstep = param.overstep;
+        if(typeof param.overStep != "undefined"){
+            this.overStep = param.overStep;
         }
         if(typeof param.canDrag != "undefined"){
             this.canDrag = param.canDrag;
@@ -61,8 +137,16 @@ function ALine(dom) {
         }
         return this;
     };
+    /**
+     * 简单绘线
+     * @param x0
+     * @param y0
+     * @param x1
+     * @param y1
+     * @returns {ALine}
+     */
     this.drawLine = function (x0, y0, x1, y1) {
-        if(!this.overstep) {
+        if(!this.overStep) {
             if (x0 < 0) x0 = 0;
             if (x1 < 0) x1 = 0;
             if (y0 < 0) y0 = 0;
@@ -114,6 +198,9 @@ function ALine(dom) {
         this.html += rs;
         return this;
     };
+    /**
+     * 拖动方法
+     */
     this.drag = function(){
         var o = this;
         $("."+this.class+".line_point").live("mousedown",function(e){
@@ -151,6 +238,11 @@ function ALine(dom) {
             e.preventDefault();
         });
     }
+    /**
+     * 绘制起点终点的方法
+     * @param point
+     * @returns {ALine}
+     */
     this.point = function(point){
         this.pointParam = point || {};
         this.pointParam.width = typeof this.pointParam != "undefined" && typeof this.pointParam.width != "undefined" ?this.pointParam.width : 5;
@@ -170,10 +262,10 @@ function ALine(dom) {
         }
         return this;
     };
-    //画比较酷的线
+    //画比较酷的线，斜线和直线
     this.coolLine = function(x0, y0, x1, y1){
         this.method = 'coolLine';
-        if(!this.overstep) {
+        if(!this.overStep) {
             if (x0 < 0) x0 = 0;
             if (x1 < 0) x1 = 0;
             if (y0 < 0) y0 = 0;
@@ -200,6 +292,11 @@ function ALine(dom) {
             return this.drawLine(x0,y0,x1,y1);
         }
     };
+    /**
+     * 重置绘线，用于新绘线
+     * @param resetClass
+     * @returns {ALine}
+     */
     this.reset = function(resetClass){
         resetClass = resetClass || this.class;
         $("." + resetClass+":not(.line_label)").remove();
@@ -208,9 +305,17 @@ function ALine(dom) {
         this.style = '';
         return this;
     }
+    /**
+     * 直角线
+     * @param x0
+     * @param y0
+     * @param x1
+     * @param y1
+     * @returns {ALine}
+     */
     this.angleLine = function(x0, y0, x1, y1){
         this.method = 'angleLine';
-        if(!this.overstep) {
+        if(!this.overStep) {
             if (x0 < 0) x0 = 0;
             if (x1 < 0) x1 = 0;
             if (y0 < 0) y0 = 0;
@@ -235,6 +340,12 @@ function ALine(dom) {
             return this.drawLine(x0,y0,x1,y1);
         }
     };
+    /**
+     * 绘制标签
+     * @param title
+     * @param param
+     * @returns {ALine}
+     */
     this.label = function(title,param){
         if($("."+this.class+".line_label").length==0){
             param = param || {};
@@ -245,6 +356,9 @@ function ALine(dom) {
         }
         return this;
     }
+    /**
+     * 显示绘线
+     */
     this.show = function () {
         //console.info(this)
         $(dom).append('<style class="style'+this.class+'">'+this.initStyle+this.style+'</style>'+this.html);
@@ -269,6 +383,12 @@ function ALine(dom) {
             this.callback.call({},this.class,this.start,this.stop);
         }
     };
+    /**
+     * 生成随机数
+     * @param len
+     * @param type
+     * @returns {string}
+     */
     this.rand = function (len, type) {
         len = len < 0 ? 0 : len;
         type = type && type <= 3 ? type : 3;
@@ -285,6 +405,10 @@ function ALine(dom) {
         }
         return str;
     };
+    /**
+     * 清除某个class的线
+     * @param clearClass
+     */
     this.clear = function (clearClass) {
         clearClass = clearClass || this.class
         $("." + clearClass).remove();
@@ -293,6 +417,11 @@ function ALine(dom) {
         this.style = '';
         this.class = '';
     };
+    /**
+     * 获取鼠标坐标
+     * @param e
+     * @returns {*[]}
+     */
     this.getLoction = function(e){
         //console.info(e);
         var offset = $(this.dom).offset();
