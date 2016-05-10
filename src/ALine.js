@@ -13,7 +13,7 @@ function ALine(dom) {
      * 所绘线的类
      * @type {string}
      */
-    this.class = '';
+    this.lineclass = '';
     /**
      * 自定义样式
      * @type {string}
@@ -114,21 +114,21 @@ function ALine(dom) {
             this.canDrag = param.canDrag;
         }
 
-        this.class =  oldClass;
+        this.lineclass =  oldClass;
         this.html = '';
-        this.initStyle = '.'+this.class+'{position:absolute;line-height:1px;overflow:hidden;z-index:99998}';
-        this.initStyle += '.' + this.class + '{background-color:' + color + '}';
+        this.initStyle = '.'+this.lineclass+'{position:absolute;line-height:1px;overflow:hidden;z-index:99998}';
+        this.initStyle += '.' + this.lineclass + '{background-color:' + color + '}';
         this.appendClass = ' ' + (appendClass || '');
         this.callback = typeof param.callback != "undefined" ?param.callback : '';
         this.clickCallback = typeof param.clickCallback != "undefined" ?param.clickCallback : '';
         if(this.canDrag) {
-            this.draging[this.class] = null;
+            this.draging[this.lineclass] = null;
             this.drag();
         }
         if(typeof this.clickCallback == "function"){
             o = this;
-            $("body").delegate("."+this.class,"click",function(){
-                var allclass = $(this).attr("class");
+            $("body").delegate("."+this.lineclass,"click",function(){
+                var allclass = $(this).attr("lineclass");
                 var m = allclass.match(/aline_(\w+)/);
                 if(m!= null && m.length == 2) {
                     o.clickCallback.call({}, "aline_"+m[1]);
@@ -171,7 +171,7 @@ function ALine(dom) {
                 x1 = x0;
                 x0 = temp;
             }
-            rs = " <div class='" + this.class +this.appendClass+ "' style= 'height:1px;width:" + Math.abs(x1 - x0).toFixed(3) + "px;top: " + y0 + "px;left: " + x0 + "px;'></div>";
+            rs = " <div class='" + this.lineclass +this.appendClass+ "' style= 'height:1px;width:" + Math.abs(x1 - x0).toFixed(3) + "px;top: " + y0 + "px;left: " + x0 + "px;'></div>";
         }
         else if (x0 == x1){ //竖线
             //console.info('old x0',x0,'y0',y0,'x1',x1,'y1',y1);
@@ -181,7 +181,7 @@ function ALine(dom) {
                 y0 = temp;
             }
             //console.info('new x0',x0,'y0',y0,'x1',x1,'y1',y1);
-            rs = " <div class='" + this.class +this.appendClass+ "' style= 'width:1px;height:" + Math.abs(y1 - y0).toFixed(3) + "px;top: " + y0 + "px;left: " + x0 + "px;'></div>";
+            rs = " <div class='" + this.lineclass +this.appendClass+ "' style= 'width:1px;height:" + Math.abs(y1 - y0).toFixed(3) + "px;top: " + y0 + "px;left: " + x0 + "px;'></div>";
         } else {
             var lx = x1 - x0;
             var ly = y1 - y0;
@@ -191,7 +191,7 @@ function ALine(dom) {
                 var p = i / l;
                 var px = x0 + lx * p;
                 var py = y0 + ly * p;
-                rs[rs.length] = " <div class='" + this.class +this.appendClass+ "' style= 'width:1px;height:1px;top: " + py + "px;left: " + px + "px;'></div> ";
+                rs[rs.length] = " <div class='" + this.lineclass +this.appendClass+ "' style= 'width:1px;height:1px;top: " + py + "px;left: " + px + "px;'></div> ";
             }
             rs = rs.join(" ");
         }
@@ -203,8 +203,8 @@ function ALine(dom) {
      */
     this.drag = function(){
         var o = this;
-        $("."+this.class+".line_point").live("mousedown",function(e){
-            o.draging[o.class] = this;
+        $("."+this.lineclass+".line_point").live("mousedown",function(e){
+            o.draging[o.lineclass] = this;
             if($(this).hasClass("start_point")){
                 //起点
                 o.dragObj = 'start';
@@ -215,26 +215,26 @@ function ALine(dom) {
             e.preventDefault();
         });
         $(this.dom).mousemove(function(e){
-            if(o.draging[o.class]) {
+            if(o.draging[o.lineclass]) {
                 var location = o.getLoction(e);
                 //console.info(location);
                 if(o.dragObj == 'start'){
                     if(o.method == 'coolLine') {
-                        o.reset(o.class).coolLine(location[0], location[1], o.stop[0], o.stop[1]).point(o.pointParam).show();
+                        o.reset(o.lineclass).coolLine(location[0], location[1], o.stop[0], o.stop[1]).point(o.pointParam).show();
                     } else {
-                        o.reset(o.class).angleLine(location[0], location[1], o.stop[0], o.stop[1]).point(o.pointParam).show();
+                        o.reset(o.lineclass).angleLine(location[0], location[1], o.stop[0], o.stop[1]).point(o.pointParam).show();
                     }
                 } else {
                     if(o.method == 'coolLine') {
-                        o.reset(o.class).coolLine(o.start[0], o.start[1], location[0], location[1]).point(o.pointParam).show();
+                        o.reset(o.lineclass).coolLine(o.start[0], o.start[1], location[0], location[1]).point(o.pointParam).show();
                     } else {
-                        o.reset(o.class).angleLine(o.start[0], o.start[1], location[0], location[1]).point(o.pointParam).show();
+                        o.reset(o.lineclass).angleLine(o.start[0], o.start[1], location[0], location[1]).point(o.pointParam).show();
                     }
                 }
             }
             e.preventDefault();
         }).mouseup(function(e){
-            o.draging[o.class] = null;
+            o.draging[o.lineclass] = null;
             e.preventDefault();
         });
     }
@@ -249,16 +249,16 @@ function ALine(dom) {
         this.pointParam.border =typeof this.pointParam != "undefined" && typeof this.pointParam.border != "undefined" ? this.pointParam.border : 1;
         this.pointParam.bgcolor = typeof this.pointParam != "undefined" && typeof this.pointParam.bgcolor != "undefined" ?this.pointParam.bgcolor : '#ccc';
         this.pointParam.bordercolor =typeof this.pointParam != "undefined" && typeof this.pointParam.bordercolor != "undefined" ? this.pointParam.bordercolor : '#efefef';
-        this.style += this.style+'.'+this.class+'.line_point{width:'+this.pointParam.width+'px !important;height:'+this.pointParam.width+'px !important;z-index:99999;border-radius:'+(this.pointParam.width*1+this.pointParam.border*1)+'px;border:'+this.pointParam.border+'px solid '+this.pointParam.bordercolor+';background-color:'+this.pointParam.bgcolor+'  !important}';
+        this.style += this.style+'.'+this.lineclass+'.line_point{width:'+this.pointParam.width+'px !important;height:'+this.pointParam.width+'px !important;z-index:99999;border-radius:'+(this.pointParam.width*1+this.pointParam.border*1)+'px;border:'+this.pointParam.border+'px solid '+this.pointParam.bordercolor+';background-color:'+this.pointParam.bgcolor+'  !important}';
         if(this.start.length){
             var x = this.start[0].toFixed(3)- (this.pointParam.width+this.pointParam.border*1)/2;
             var y = this.start[1].toFixed(3)- (this.pointParam.width+this.pointParam.border*1)/2;
-            this.html +=" <div class='" + this.class +this.appendClass+ " line_point start_point' style= 'top: " + y + "px;left: " + x + "px;'></div> ";
+            this.html +=" <div class='" + this.lineclass +this.appendClass+ " line_point start_point' style= 'top: " + y + "px;left: " + x + "px;'></div> ";
         }
         if(this.stop.length){
             var x = this.stop[0].toFixed(3)- (this.pointParam.width+this.pointParam.border*1)/2;
             var y = this.stop[1].toFixed(3)- (this.pointParam.width+this.pointParam.border*1)/2;
-            this.html +=" <div class='" + this.class +this.appendClass+ " line_point stop_point' style= 'top: " + y + "px;left: " + x + "px;'></div> ";
+            this.html +=" <div class='" + this.lineclass +this.appendClass+ " line_point stop_point' style= 'top: " + y + "px;left: " + x + "px;'></div> ";
         }
         return this;
     };
@@ -298,7 +298,7 @@ function ALine(dom) {
      * @returns {ALine}
      */
     this.reset = function(resetClass){
-        resetClass = resetClass || this.class;
+        resetClass = resetClass || this.lineclass;
         $("." + resetClass+":not(.line_label)").remove();
         $(".style" + resetClass).remove();
         this.html = '';
@@ -347,12 +347,12 @@ function ALine(dom) {
      * @returns {ALine}
      */
     this.label = function(title,param){
-        if($("."+this.class+".line_label").length==0){
+        if($("."+this.lineclass+".line_label").length==0){
             param = param || {};
             var height = typeof param.height != "undefined" ? param.height :20;
             var style = typeof param.style != "undefined" ? param.style :'';
-            this.initStyle += '.'+this.class+'.line_label{height:'+height+'px;line-height:'+height+'px;background-color:#fff;border-radius:3px;border:1px solid #efefef;padding:0 5px;'+style+'}';
-            this.html += " <div class='" + this.class +this.appendClass+ " line_label' style= 'display: none;'>"+title+"</div> ";
+            this.initStyle += '.'+this.lineclass+'.line_label{height:'+height+'px;line-height:'+height+'px;background-color:#fff;border-radius:3px;border:1px solid #efefef;padding:0 5px;'+style+'}';
+            this.html += " <div class='" + this.lineclass +this.appendClass+ " line_label' style= 'display: none;'>"+title+"</div> ";
         }
         return this;
     }
@@ -361,12 +361,12 @@ function ALine(dom) {
      */
     this.show = function () {
         //console.info(this)
-        $(dom).append('<style class="style'+this.class+'">'+this.initStyle+this.style+'</style>'+this.html);
-        if($("."+this.class+".line_label").length && this.start.length>0 && this.stop.length>0) {
+        $(dom).append('<style class="style'+this.lineclass+'">'+this.initStyle+this.style+'</style>'+this.html);
+        if($("."+this.lineclass+".line_label").length && this.start.length>0 && this.stop.length>0) {
             var left = this.stop[0];
             var top = this.stop[1];
-            var lable_width = $("."+this.class+".line_label").width();
-            var lable_height = $("."+this.class+".line_label").height();
+            var lable_width = $("."+this.lineclass+".line_label").width();
+            var lable_height = $("."+this.lineclass+".line_label").height();
             if(this.start[0] > this.stop[0]){
                 //left =
                 left -= (lable_width + (this.pointParam.width+this.pointParam.border)/2+13);
@@ -374,13 +374,13 @@ function ALine(dom) {
                 left += ((this.pointParam.width+this.pointParam.border)/2+3);
             }
             top -= lable_height/2;
-            $("." + this.class + ".line_label").css({
+            $("." + this.lineclass + ".line_label").css({
                 left: left,
                 top: top,
             }).show();
         }
         if(typeof this.callback == "function"){
-            this.callback.call({},this.class,this.start,this.stop);
+            this.callback.call({},this.lineclass,this.start,this.stop);
         }
     };
     /**
@@ -410,12 +410,12 @@ function ALine(dom) {
      * @param clearClass
      */
     this.clear = function (clearClass) {
-        clearClass = clearClass || this.class
+        clearClass = clearClass || this.lineclass
         $("." + clearClass).remove();
         $(".style" + clearClass).remove();
         this.html = '';
         this.style = '';
-        this.class = '';
+        this.lineclass = '';
     };
     /**
      * 获取鼠标坐标
