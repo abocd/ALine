@@ -105,7 +105,7 @@ function ALine(dom) {
     this.init = function (param) { //color,Class,appendClass
         param = param || {};
         var color = param.color || '#666';
-        var oldClass = param.oldClass || this.rand(6);
+        var oldClass = param.oldClass || 'aline_' +this.rand(6);
         var appendClass = param.appendClass || '';
         if(typeof param.overStep != "undefined"){
             this.overStep = param.overStep;
@@ -114,7 +114,7 @@ function ALine(dom) {
             this.canDrag = param.canDrag;
         }
 
-        this.class = 'aline_' + oldClass;
+        this.class =  oldClass;
         this.html = '';
         this.initStyle = '.'+this.class+'{position:absolute;line-height:1px;overflow:hidden;z-index:99998}';
         this.initStyle += '.' + this.class + '{background-color:' + color + '}';
