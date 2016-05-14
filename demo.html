@@ -207,7 +207,7 @@ var demo5 = new ALine('#demo5');
       var demo6 = new ALine('#demo6');
       //横线
       demo6.init({color:'#666',canDrag:true,callback:function(){
-              $("#demo6_memo1").html("当前创建的类为："+arguments[0]+" , 标签文字为："+$("."+arguments[0]+".line_label").html());
+              $("#demo6_memo1").html("当前创建的类为："+arguments[0]+" , 标签文字为："+$("."+arguments[0]+".line_label").html()+" 绘制时间戳："+(new Date()).valueOf());
               },clickCallback:function(){
         $("#demo6_click").html("您点击了类："+arguments[0]+" , 标签文字为："+$("."+arguments[0]+".line_label").html())
       }
@@ -215,21 +215,21 @@ var demo5 = new ALine('#demo5');
       //竖线
       var demo6 = new ALine('#demo6');
       demo6.init({color:'#777',canDrag:true,callback:function(){
-      $("#demo6_memo2").html("当前创建的类为："+arguments[0]+" , 标签文字为："+$("."+arguments[0]+".line_label").html());
+      $("#demo6_memo2").html("当前创建的类为："+arguments[0]+" , 标签文字为："+$("."+arguments[0]+".line_label").html()+" 绘制时间戳："+(new Date()).valueOf());
       },clickCallback:function(){
         $("#demo6_click").html("您点击了类："+arguments[0]+" , 标签文字为："+$("."+arguments[0]+".line_label").html())
       }}).angleLine(150,50,150,250).label("竖线").point({width:8}).show();
       //直角
       var demo6 = new ALine('#demo6');
       demo6.init({color:'#888',canDrag:true,callback:function(){
-      $("#demo6_memo3").html("当前创建的类为："+arguments[0]+" , 标签文字为："+$("."+arguments[0]+".line_label").html());
+      $("#demo6_memo3").html("当前创建的类为："+arguments[0]+" , 标签文字为："+$("."+arguments[0]+".line_label").html()+" 绘制时间戳："+(new Date()).valueOf());
       },clickCallback:function(){
         $("#demo6_click").html("您点击了类："+arguments[0]+" , 标签文字为："+$("."+arguments[0]+".line_label").html())
       }}).angleLine(250,100,350,200).label("直角").point({width:10}).show();
       //曲线
       var demo6 = new ALine('#demo6');
       demo6.init({color:'#999',canDrag:true,callback:function(){
-      $("#demo6_memo4").html("当前创建的类为："+arguments[0]+" , 标签文字为："+$("."+arguments[0]+".line_label").html());
+      $("#demo6_memo4").html("当前创建的类为："+arguments[0]+" , 标签文字为："+$("."+arguments[0]+".line_label").html()+" 绘制时间戳："+(new Date()).valueOf());
       },clickCallback:function(){
         $("#demo6_click").html("您点击了类："+arguments[0]+" , 标签文字为："+$("."+arguments[0]+".line_label").html())
       }}).coolLine(400,100,500,200).label("曲线").point({width:12}).show();
@@ -241,31 +241,30 @@ var demo5 = new ALine('#demo5');
 var demo6 = new ALine('#demo6');
       //横线
       demo6.init({color:'#666',canDrag:true,callback:function(){
-          //current_anchor = {class:arguments[0],start:arguments[1],stop:arguments[2]}
-          $("#demo6_memo1").html("当前创建的类为："+arguments[0]+" , 标签文字为："+$("."+arguments[0]+".line_label").html());
-          },clickCallback:function(){
+            $("#demo6_memo1").html("当前创建的类为："+arguments[0]+" , 标签文字为："+$("."+arguments[0]+".line_label").html()+" 绘制时间戳："+(new Date()).valueOf());
+            },clickCallback:function(){
         $("#demo6_click").html("您点击了类："+arguments[0]+" , 标签文字为："+$("."+arguments[0]+".line_label").html())
       }
       }).angleLine(50,150,100,150).label("横线").point().show();
       //竖线
       var demo6 = new ALine('#demo6');
       demo6.init({color:'#777',canDrag:true,callback:function(){
-          $("#demo6_memo2").html("当前创建的类为："+arguments[0]+" , 标签文字为："+$("."+arguments[0]+".line_label").html());
-          },clickCallback:function(){
+            $("#demo6_memo2").html("当前创建的类为："+arguments[0]+" , 标签文字为："+$("."+arguments[0]+".line_label").html()+" 绘制时间戳："+(new Date()).valueOf());
+            },clickCallback:function(){
         $("#demo6_click").html("您点击了类："+arguments[0]+" , 标签文字为："+$("."+arguments[0]+".line_label").html())
       }}).angleLine(150,50,150,250).label("竖线").point({width:8}).show();
       //直角
       var demo6 = new ALine('#demo6');
       demo6.init({color:'#888',canDrag:true,callback:function(){
-          $("#demo6_memo3").html("当前创建的类为："+arguments[0]+" , 标签文字为："+$("."+arguments[0]+".line_label").html());
-          },clickCallback:function(){
+            $("#demo6_memo3").html("当前创建的类为："+arguments[0]+" , 标签文字为："+$("."+arguments[0]+".line_label").html()+" 绘制时间戳："+(new Date()).valueOf());
+            },clickCallback:function(){
         $("#demo6_click").html("您点击了类："+arguments[0]+" , 标签文字为："+$("."+arguments[0]+".line_label").html())
       }}).angleLine(250,100,350,200).label("直角").point({width:10}).show();
       //曲线
       var demo6 = new ALine('#demo6');
       demo6.init({color:'#999',canDrag:true,callback:function(){
-          $("#demo6_memo4").html("当前创建的类为："+arguments[0]+" , 标签文字为："+$("."+arguments[0]+".line_label").html());
-          },clickCallback:function(){
+            $("#demo6_memo4").html("当前创建的类为："+arguments[0]+" , 标签文字为："+$("."+arguments[0]+".line_label").html()+" 绘制时间戳："+(new Date()).valueOf());
+            },clickCallback:function(){
         $("#demo6_click").html("您点击了类："+arguments[0]+" , 标签文字为："+$("."+arguments[0]+".line_label").html())
       }}).coolLine(400,100,500,200).label("曲线").point({width:12}).show();
         </pre>
