@@ -128,7 +128,7 @@ function ALine(dom) {
         if(typeof this.clickCallback == "function"){
             o = this;
             $("body").delegate("."+this.lineclass,"click",function(){
-                var allclass = $(this).attr("lineclass");
+                var allclass = $(this).attr("class");
                 var m = allclass.match(/aline_(\w+)/);
                 if(m!= null && m.length == 2) {
                     o.clickCallback.call({}, "aline_"+m[1]);
