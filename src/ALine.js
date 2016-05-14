@@ -139,10 +139,10 @@ function ALine(dom) {
     };
     /**
      * 简单绘线
-     * @param x0
-     * @param y0
-     * @param x1
-     * @param y1
+     * @param x0  起点x坐标
+     * @param y0  起点y坐标
+     * @param x1  终点x坐标
+     * @param y1  终点y坐标
      * @returns {ALine}
      */
     this.drawLine = function (x0, y0, x1, y1) {
@@ -262,7 +262,15 @@ function ALine(dom) {
         }
         return this;
     };
-    //画比较酷的线，斜线和直线
+    /**
+     * 画比较酷的线，斜线和直线
+     * 
+     * @param x0  起点x坐标
+     * @param y0  起点y坐标
+     * @param x1  终点x坐标
+     * @param y1  终点y坐标
+     * @returns {ALine}
+     */
     this.coolLine = function(x0, y0, x1, y1){
         this.method = 'coolLine';
         if(!this.overStep) {
@@ -307,10 +315,10 @@ function ALine(dom) {
     }
     /**
      * 直角线
-     * @param x0
-     * @param y0
-     * @param x1
-     * @param y1
+     * @param x0  起点x坐标
+     * @param y0  起点y坐标
+     * @param x1  终点x坐标
+     * @param y1  终点y坐标
      * @returns {ALine}
      */
     this.angleLine = function(x0, y0, x1, y1){
