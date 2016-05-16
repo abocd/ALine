@@ -25,6 +25,16 @@ function ALine(dom) {
      */
     this.initStyle = '';
     /**
+     * 标签样式
+     * @type {string}
+     */
+    this.labelStyle = '';
+    /**
+     * 点样式
+     * @type {string}
+     */
+    this.pointStyle = '';
+    /**
      * 起点坐标
      * @type {Array}
      */
@@ -94,7 +104,7 @@ function ALine(dom) {
      */
     this.method = '';
     //var o = this;
-    if( $(dom).css("position") == "relative" ){
+    if( $(dom).css("position") != "relative" ){
         $(dom).css("position", "relative");
     }
     /**
@@ -249,7 +259,7 @@ function ALine(dom) {
         this.pointParam.border =typeof this.pointParam != "undefined" && typeof this.pointParam.border != "undefined" ? this.pointParam.border : 1;
         this.pointParam.bgcolor = typeof this.pointParam != "undefined" && typeof this.pointParam.bgcolor != "undefined" ?this.pointParam.bgcolor : '#ccc';
         this.pointParam.bordercolor =typeof this.pointParam != "undefined" && typeof this.pointParam.bordercolor != "undefined" ? this.pointParam.bordercolor : '#efefef';
-        this.style += this.style+'.'+this.lineclass+'.line_point{width:'+this.pointParam.width+'px !important;height:'+this.pointParam.width+'px !important;z-index:99999;border-radius:'+(this.pointParam.width*1+this.pointParam.border*1)+'px;border:'+this.pointParam.border+'px solid '+this.pointParam.bordercolor+';background-color:'+this.pointParam.bgcolor+'  !important}';
+        this.pointStyle = '.'+this.lineclass+'.line_point{width:'+this.pointParam.width+'px !important;height:'+this.pointParam.width+'px !important;z-index:99999;border-radius:'+(this.pointParam.width*1+this.pointParam.border*1)+'px;border:'+this.pointParam.border+'px solid '+this.pointParam.bordercolor+';background-color:'+this.pointParam.bgcolor+'  !important}';
         if(this.start.length){
             var x = this.start[0].toFixed(3)- (this.pointParam.width+this.pointParam.border*1)/2;
             var y = this.start[1].toFixed(3)- (this.pointParam.width+this.pointParam.border*1)/2;
@@ -264,7 +274,7 @@ function ALine(dom) {
     };
     /**
      * 画比较酷的线，斜线和直线
-     * 
+     *
      * @param x0  起点x坐标
      * @param y0  起点y坐标
      * @param x1  终点x坐标
@@ -359,7 +369,7 @@ function ALine(dom) {
             param = param || {};
             var height = typeof param.height != "undefined" ? param.height :20;
             var style = typeof param.style != "undefined" ? param.style :'';
-            this.initStyle += '.'+this.lineclass+'.line_label{height:'+height+'px;line-height:'+height+'px;background-color:#fff;border-radius:3px;border:1px solid #efefef;padding:0 5px;'+style+'}';
+            this.labelStyle = '.'+this.lineclass+'.line_label{height:'+height+'px;line-height:'+height+'px;background-color:#fff;border-radius:3px;border:1px solid #efefef;padding:0 5px;'+style+'}';
             this.html += " <div class='" + this.lineclass +this.appendClass+ " line_label' style= 'display: none;'>"+title+"</div> ";
         }
         return this;
@@ -369,7 +379,7 @@ function ALine(dom) {
      */
     this.show = function () {
         //console.info(this)
-        $(dom).append('<style class="style'+this.lineclass+'">'+this.initStyle+this.style+'</style>'+this.html);
+        $(dom).append('<style class="style'+this.lineclass+'">'+this.initStyle+this.style+this.pointStyle+this.labelStyle+'</style>'+this.html);
         if($("."+this.lineclass+".line_label").length && this.start.length>0 && this.stop.length>0) {
             var left = this.stop[0];
             var top = this.stop[1];
