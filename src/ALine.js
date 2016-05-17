@@ -384,7 +384,8 @@ function ALine(dom) {
         } else {
             $(this.dom).append('<style class="style' + this.lineClass + '">' + this.initStyle + this.style + this.pointStyle + this.labelStyle + '</style>');
         }
-        if($("."+this.lineClass).length>0){
+        console.info($("."+this.lineClass))
+        if($("."+this.lineClass+":not(.line_label)").length>0){
             $("."+this.lineClass).show();
         } else {
             $(this.dom).append(this.html);
