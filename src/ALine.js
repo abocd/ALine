@@ -392,9 +392,9 @@ function ALine(dom) {
      * @param title
      */
     this.setLabelTitle = function(lineClass,title){
-        this.lineClass = lineClass;
-        $("."+this.lineClass+".line_label").html(title);
-        this._getInfo()._setLablePosition();
+        $("."+lineClass+".line_label").html(title);
+        var info = this._getInfo(lineClass);
+        this._setLablePosition(lineClass,info[0],info[1]);
     }
     /**
      * 显示绘线
@@ -412,7 +412,7 @@ function ALine(dom) {
             $(this.dom).append(this.html);
         }
         if($("."+this.lineClass+".line_label").length && this.start.length>0 && this.stop.length>0) {
-            this._setLablePosition();
+            this._setLablePosition(this.lineClass,this.pointParam,{start:this.start,stop:this.stop});
             $("." + this.lineClass + ".line_label").show();
         }
         if(typeof this.callback == "function"){
@@ -427,19 +427,19 @@ function ALine(dom) {
      * 设置标签位置
      * @private
      */
-    this._setLablePosition = function(){
-        var left = this.stop[0];
-        var top = this.stop[1];
-        var lable_width = $("."+this.lineClass+".line_label").width();
-        var lable_height = $("."+this.lineClass+".line_label").height();
-        if(this.start[0] > this.stop[0]){
+    this._setLablePosition = function(lineClass,pointParam,startStop){
+        var left = startStop.stop[0];
+        var top = startStop.stop[1];
+        var lable_width = $("."+lineClass+".line_label").width();
+        var lable_height = $("."+lineClass+".line_label").height();
+        if(startStop.start[0] > startStop.stop[0]){
             //left =
-            left -= (lable_width + (this.pointParam.width+this.pointParam.border)/2+13);
+            left -= (lable_width + (pointParam.width+pointParam.border)/2+13);
         } else {
-            left += ((this.pointParam.width+this.pointParam.border)/2+3);
+            left += ((pointParam.width+pointParam.border)/2+3);
         }
         top -= lable_height/2;
-        $("." + this.lineClass + ".line_label").css({
+        $("." + lineClass + ".line_label").css({
             left: left,
             top: top,
         });
@@ -451,13 +451,17 @@ function ALine(dom) {
      * @returns {ALine}
      * @private
      */
-    this._getInfo = function(){
-        this.pointParam.width = parseInt($("."+this.lineClass+".line_point").width());
-        this.pointParam.border = parseInt($("."+this.lineClass+".line_point").css("borderWidth"));
-        var correcting = (this.pointParam.width+this.pointParam.border*2)/2;
-        this.start = [parseInt($("."+this.lineClass+".start_point").css("left"))+correcting,parseInt($("."+this.lineClass+".start_point").css("top"))+correcting];
-        this.stop = [parseInt($("."+this.lineClass+".stop_point").css("left"))+correcting,parseInt($("."+this.lineClass+".stop_point").css("top"))+correcting];
-        return this;
+    this._getInfo = function(lineClass){
+        var pointParam = {
+            width:parseInt($("."+lineClass+".line_point").width()),
+            border:parseInt($("."+lineClass+".line_point").css("borderWidth"))
+        };
+        var correcting = (pointParam.width+pointParam.border*2)/2;
+        var startStop = {
+            start : [parseInt($("." + lineClass + ".start_point").css("left")) + correcting, parseInt($("." + lineClass + ".start_point").css("top")) + correcting],
+            stop : [parseInt($("." + lineClass + ".stop_point").css("left")) + correcting, parseInt($("." + lineClass + ".stop_point").css("top")) + correcting]
+    }
+        return [pointParam,startStop];
     }
 
     /**

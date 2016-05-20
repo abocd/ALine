@@ -5,7 +5,8 @@
 
 [我的php之旅](http://www.phpec.org)
 
-
+## 演示一下
+<img src="demo.gif" />
 
 ##ALine画线、标注插件使用说明
 
