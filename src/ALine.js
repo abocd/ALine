@@ -1,6 +1,8 @@
 /**
  * Created by aboc on 16-5-6. QQ:9986584
  *
+ * http://git.oschina.net/niantang/ALine
+ *
  */
 
 function ALine(dom) {
@@ -103,6 +105,11 @@ function ALine(dom) {
      * @type {string}
      */
     this.method = '';
+    /**
+     * 是否调试模式
+     * @type {boolean}
+     */
+    this.debug = false
     //var o = this;
     if( $(dom).css("position") != "relative" ){
         $(dom).css("position", "relative");
@@ -123,7 +130,9 @@ function ALine(dom) {
         if(typeof param.canDrag != "undefined"){
             this.canDrag = param.canDrag;
         }
-
+        if(typeof param.debug != "undefined"){
+            this.debug = param.debug;
+        }
         this.lineClass =  oldClass;
         this.html = '';
         this.initStyle = '.'+this.lineClass+'{position:absolute;line-height:1px;overflow:hidden;z-index:99998}';
@@ -137,7 +146,7 @@ function ALine(dom) {
         }
         if(typeof this.clickCallback == "function"){
             o = this;
-            $("body").delegate("."+this.lineClass,"click",function(){
+            $("body").delegate("."+this.lineClass+".line_label","click",function(){
                 var allclass = $(this).attr("class");
                 var m = allclass.match(/aline_(\w+)/);
                 if(m!= null && m.length == 2) {
@@ -240,6 +249,9 @@ function ALine(dom) {
                     } else {
                         o.reset(o.lineClass).angleLine(o.start[0], o.start[1], location[0], location[1]).point(o.pointParam).show();
                     }
+                }
+                if(o.debug){
+                    console.info("线",o.lineClass,"起点坐标", o.start[0], o.start[1],"终点坐标", o.stop[0], o.stop[1]);
                 }
             }
             e.preventDefault();
@@ -405,6 +417,9 @@ function ALine(dom) {
         }
         if(typeof this.callback == "function"){
             this.callback.call({},this.lineClass,this.start,this.stop);
+        }
+        if(this.debug){
+            console.info("线",this.lineClass,"起点坐标", this.start[0], this.start[1],"终点坐标", this.stop[0], this.stop[1]);
         }
     };
 

@@ -228,11 +228,13 @@ var demo5 = new ALine('#demo5');
       }}).angleLine(250,100,350,200).label("直角").point({width:10}).show();
       //曲线
       var demo6 = new ALine('#demo6');
-      demo6.init({color:'#999',canDrag:true,callback:function(){
+      demo6.init({color:'#999',debug:true,canDrag:true,callback:function(){
       $("#demo6_memo4").html("当前创建的类为："+arguments[0]+" , 标签文字为："+$("."+arguments[0]+".line_label").html()+" 绘制时间戳："+(new Date()).valueOf());
       },clickCallback:function(){
-        $("#demo6_click").html("您点击了类："+arguments[0]+" , 标签文字为："+$("."+arguments[0]+".line_label").html())
-      }}).coolLine(400,100,500,200).label("曲线").point({width:12}).show();
+        $("#demo6_click").html("您点击了类："+arguments[0]+" , 标签文字为："+$("."+arguments[0]+".line_label").html());
+          var res = prompt("您打算修改标签"+arguments[0]+"为什么内容？",$("."+arguments[0]+".line_label").html());
+          demo6.setLabelTitle(arguments[0],res);
+      }}).coolLine(400,100,500,200).label("点击我可以修改").point({width:12}).show();
     </script>
   </dd>
   <dd>
@@ -262,11 +264,13 @@ var demo6 = new ALine('#demo6');
       }}).angleLine(250,100,350,200).label("直角").point({width:10}).show();
       //曲线
       var demo6 = new ALine('#demo6');
-      demo6.init({color:'#999',canDrag:true,callback:function(){
+      demo6.init({color:'#999',debug:true,canDrag:true,callback:function(){
             $("#demo6_memo4").html("当前创建的类为："+arguments[0]+" , 标签文字为："+$("."+arguments[0]+".line_label").html()+" 绘制时间戳："+(new Date()).valueOf());
             },clickCallback:function(){
-        $("#demo6_click").html("您点击了类："+arguments[0]+" , 标签文字为："+$("."+arguments[0]+".line_label").html())
-      }}).coolLine(400,100,500,200).label("曲线").point({width:12}).show();
+        $("#demo6_click").html("您点击了类："+arguments[0]+" , 标签文字为："+$("."+arguments[0]+".line_label").html());
+          var res = prompt("您打算修改标签"+arguments[0]+"为什么内容？",$("."+arguments[0]+".line_label").html());
+          demo6.setLabelTitle(arguments[0],res);
+      }}).coolLine(400,100,500,200).label("点击我可以修改").point({width:12}).show();
         </pre>
   </dd>
 </dl>
