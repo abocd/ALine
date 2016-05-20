@@ -112,7 +112,7 @@ function ALine(dom) {
      * @param param
      * @returns {ALine}
      */
-    this.init = function (param) { //color,Class,appendClass
+    this.init = function (param) { //color,oldClass,appendClass
         param = param || {};
         var color = param.color || '#666';
         var oldClass = param.oldClass || 'aline_' +this.rand(6);
@@ -226,7 +226,7 @@ function ALine(dom) {
         });
         $(this.dom).mousemove(function(e){
             if(o.draging[o.lineClass]) {
-                var location = o.getLoction(e);
+                var location = o.getMouseLoction(e);
                 //console.info(location);
                 if(o.dragObj == 'start'){
                     if(o.method == 'coolLine') {
@@ -375,6 +375,16 @@ function ALine(dom) {
         return this;
     }
     /**
+     * 修改标签文字
+     * @param lineClass
+     * @param title
+     */
+    this.setLabelTitle = function(lineClass,title){
+        this.lineClass = lineClass;
+        $("."+this.lineClass+".line_label").html(title);
+        this._getInfo()._setLablePosition();
+    }
+    /**
      * 显示绘线
      */
     this.show = function () {
@@ -390,26 +400,51 @@ function ALine(dom) {
             $(this.dom).append(this.html);
         }
         if($("."+this.lineClass+".line_label").length && this.start.length>0 && this.stop.length>0) {
-            var left = this.stop[0];
-            var top = this.stop[1];
-            var lable_width = $("."+this.lineClass+".line_label").width();
-            var lable_height = $("."+this.lineClass+".line_label").height();
-            if(this.start[0] > this.stop[0]){
-                //left =
-                left -= (lable_width + (this.pointParam.width+this.pointParam.border)/2+13);
-            } else {
-                left += ((this.pointParam.width+this.pointParam.border)/2+3);
-            }
-            top -= lable_height/2;
-            $("." + this.lineClass + ".line_label").css({
-                left: left,
-                top: top,
-            }).show();
+            this._setLablePosition();
+            $("." + this.lineClass + ".line_label").show();
         }
         if(typeof this.callback == "function"){
             this.callback.call({},this.lineClass,this.start,this.stop);
         }
     };
+
+    /**
+     * 设置标签位置
+     * @private
+     */
+    this._setLablePosition = function(){
+        var left = this.stop[0];
+        var top = this.stop[1];
+        var lable_width = $("."+this.lineClass+".line_label").width();
+        var lable_height = $("."+this.lineClass+".line_label").height();
+        if(this.start[0] > this.stop[0]){
+            //left =
+            left -= (lable_width + (this.pointParam.width+this.pointParam.border)/2+13);
+        } else {
+            left += ((this.pointParam.width+this.pointParam.border)/2+3);
+        }
+        top -= lable_height/2;
+        $("." + this.lineClass + ".line_label").css({
+            left: left,
+            top: top,
+        });
+        return this;
+    }
+    /**
+     * 获取相关坐标点信息
+     *
+     * @returns {ALine}
+     * @private
+     */
+    this._getInfo = function(){
+        this.pointParam.width = parseInt($("."+this.lineClass+".line_point").width());
+        this.pointParam.border = parseInt($("."+this.lineClass+".line_point").css("borderWidth"));
+        var correcting = (this.pointParam.width+this.pointParam.border*2)/2;
+        this.start = [parseInt($("."+this.lineClass+".start_point").css("left"))+correcting,parseInt($("."+this.lineClass+".start_point").css("top"))+correcting];
+        this.stop = [parseInt($("."+this.lineClass+".stop_point").css("left"))+correcting,parseInt($("."+this.lineClass+".stop_point").css("top"))+correcting];
+        return this;
+    }
+
     /**
      * 生成随机数
      * @param len
@@ -449,7 +484,7 @@ function ALine(dom) {
      * @param e
      * @returns {*[]}
      */
-    this.getLoction = function(e){
+    this.getMouseLoction = function(e){
         //console.info(e);
         var offset = $(this.dom).offset();
         var x = e.pageX - offset.left;
