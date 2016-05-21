@@ -111,7 +111,7 @@ function ALine(dom) {
      */
     this.debug = false
     //var o = this;
-    if( $(dom).css("position") != "relative" ){
+    if( $(dom).css("position") !== "relative" ){
         $(dom).css("position", "relative");
     }
     /**
@@ -124,13 +124,13 @@ function ALine(dom) {
         var color = param.color || '#666';
         var oldClass = param.oldClass || 'aline_' +this.rand(6);
         var appendClass = param.appendClass || '';
-        if(typeof param.overStep != "undefined"){
+        if(typeof param.overStep !== "undefined"){
             this.overStep = param.overStep;
         }
-        if(typeof param.canDrag != "undefined"){
+        if(typeof param.canDrag !== "undefined"){
             this.canDrag = param.canDrag;
         }
-        if(typeof param.debug != "undefined"){
+        if(typeof param.debug !== "undefined"){
             this.debug = param.debug;
         }
         this.lineClass =  oldClass;
@@ -138,19 +138,19 @@ function ALine(dom) {
         this.initStyle = '.'+this.lineClass+'{position:absolute;line-height:1px;overflow:hidden;z-index:99998}';
         this.initStyle += '.' + this.lineClass + '{background-color:' + color + '}';
         this.appendClass = ' ' + (appendClass || '');
-        this.callback = typeof param.callback != "undefined" ?param.callback : '';
-        this.clickCallback = typeof param.clickCallback != "undefined" ?param.clickCallback : '';
+        this.callback = typeof param.callback !== "undefined" ?param.callback : '';
+        this.clickCallback = typeof param.clickCallback !== "undefined" ?param.clickCallback : '';
         if(this.canDrag) {
             this.draging[this.lineClass] = null;
             this.drag();
         }
-        if(typeof this.clickCallback == "function"){
-            o = this;
+        if(typeof this.clickCallback === "function"){
+            var clickCallback = this.clickCallback;
             $("body").delegate("."+this.lineClass+".line_label","click",function(){
                 var allclass = $(this).attr("class");
                 var m = allclass.match(/aline_(\w+)/);
-                if(m!= null && m.length == 2) {
-                    o.clickCallback.call({}, "aline_"+m[1]);
+                if(m!== null && m.length === 2) {
+                    clickCallback.call(this, "aline_"+m[1]);
                 }
             });
         }
@@ -179,12 +179,12 @@ function ALine(dom) {
         y0 = parseFloat(y0.toFixed(3));
         x1 = parseFloat(x1.toFixed(3));
         y1 = parseFloat(y1.toFixed(3));
-        if(this.start.length == 0){
+        if(this.start.length === 0){
             this.start = [x0,y0];
             this.stop = [x1,y1];
         }
         var rs = " ";
-        if (y0 == y1){ //横线
+        if (y0 === y1){ //横线
             if(x0 > x1){
                 var temp = x1;
                 x1 = x0;
@@ -192,7 +192,7 @@ function ALine(dom) {
             }
             rs = " <div class='" + this.lineClass +this.appendClass+ "' style= 'height:1px;width:" + Math.abs(x1 - x0).toFixed(3) + "px;top: " + y0 + "px;left: " + x0 + "px;'></div>";
         }
-        else if (x0 == x1){ //竖线
+        else if (x0 === x1){ //竖线
             //console.info('old x0',x0,'y0',y0,'x1',x1,'y1',y1);
             if(y0 > y1){
                 var temp = y1;
@@ -237,14 +237,14 @@ function ALine(dom) {
             if(o.draging[o.lineClass]) {
                 var location = o.getMouseLoction(e);
                 //console.info(location);
-                if(o.dragObj == 'start'){
-                    if(o.method == 'coolLine') {
+                if(o.dragObj === 'start'){
+                    if(o.method === 'coolLine') {
                         o.reset(o.lineClass).coolLine(location[0], location[1], o.stop[0], o.stop[1]).point(o.pointParam).show();
                     } else {
                         o.reset(o.lineClass).angleLine(location[0], location[1], o.stop[0], o.stop[1]).point(o.pointParam).show();
                     }
                 } else {
-                    if(o.method == 'coolLine') {
+                    if(o.method === 'coolLine') {
                         o.reset(o.lineClass).coolLine(o.start[0], o.start[1], location[0], location[1]).point(o.pointParam).show();
                     } else {
                         o.reset(o.lineClass).angleLine(o.start[0], o.start[1], location[0], location[1]).point(o.pointParam).show();
@@ -267,10 +267,10 @@ function ALine(dom) {
      */
     this.point = function(point){
         this.pointParam = point || {};
-        this.pointParam.width = typeof this.pointParam != "undefined" && typeof this.pointParam.width != "undefined" ?this.pointParam.width : 5;
-        this.pointParam.border =typeof this.pointParam != "undefined" && typeof this.pointParam.border != "undefined" ? this.pointParam.border : 1;
-        this.pointParam.bgcolor = typeof this.pointParam != "undefined" && typeof this.pointParam.bgcolor != "undefined" ?this.pointParam.bgcolor : '#ccc';
-        this.pointParam.bordercolor =typeof this.pointParam != "undefined" && typeof this.pointParam.bordercolor != "undefined" ? this.pointParam.bordercolor : '#efefef';
+        this.pointParam.width = typeof this.pointParam !== "undefined" && typeof this.pointParam.width !== "undefined" ?this.pointParam.width : 5;
+        this.pointParam.border =typeof this.pointParam !== "undefined" && typeof this.pointParam.border !== "undefined" ? this.pointParam.border : 1;
+        this.pointParam.bgcolor = typeof this.pointParam !== "undefined" && typeof this.pointParam.bgcolor !== "undefined" ?this.pointParam.bgcolor : '#ccc';
+        this.pointParam.bordercolor =typeof this.pointParam !== "undefined" && typeof this.pointParam.bordercolor !== "undefined" ? this.pointParam.bordercolor : '#efefef';
         this.pointStyle = '.'+this.lineClass+'.line_point{width:'+this.pointParam.width+'px !important;height:'+this.pointParam.width+'px !important;z-index:99999;border-radius:'+(this.pointParam.width*1+this.pointParam.border*1)+'px;border:'+this.pointParam.border+'px solid '+this.pointParam.bordercolor+';background-color:'+this.pointParam.bgcolor+'  !important}';
         if(this.start.length){
             var x = this.start[0].toFixed(3)- (this.pointParam.width+this.pointParam.border*1)/2;
@@ -378,10 +378,10 @@ function ALine(dom) {
      */
     this.label = function(title,param){
         param = param || {};
-        var height = typeof param.height != "undefined" ? param.height :20;
-        var style = typeof param.style != "undefined" ? param.style :'';
+        var height = typeof param.height !== "undefined" ? param.height :20;
+        var style = typeof param.style !== "undefined" ? param.style :'';
         this.labelStyle = '.'+this.lineClass+'.line_label{height:'+height+'px;line-height:'+height+'px;background-color:#fff;border-radius:3px;border:1px solid #efefef;padding:0 5px;'+style+'}';
-        if($("."+this.lineClass+".line_label").length==0){
+        if($("."+this.lineClass+".line_label").length===0){
             this.html += " <div class='" + this.lineClass +this.appendClass+ " line_label' style= 'display: none;'>"+title+"</div> ";
         }
         return this;
@@ -415,7 +415,7 @@ function ALine(dom) {
             this._setLablePosition(this.lineClass,this.pointParam,{start:this.start,stop:this.stop});
             $("." + this.lineClass + ".line_label").show();
         }
-        if(typeof this.callback == "function"){
+        if(typeof this.callback === "function"){
             this.callback.call({},this.lineClass,this.start,this.stop);
         }
         if(this.debug){
@@ -476,9 +476,9 @@ function ALine(dom) {
         var str = '';
         for (var i = 0; i < len; i++) {
             var j = Math.ceil(Math.random() * type);
-            if (j == 1) {
+            if (j === 1) {
                 str += Math.ceil(Math.random() * 9);
-            } else if (j == 2) {
+            } else if (j === 2) {
                 str += String.fromCharCode(Math.ceil(Math.random() * 25 + 65));
             } else {
                 str += String.fromCharCode(Math.ceil(Math.random() * 25 + 97));
