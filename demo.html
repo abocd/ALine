@@ -238,6 +238,10 @@ var demo5 = new ALine('#demo5');
           }
           demo7.setLabelTitle(arguments[0],res);
       }}).coolLine(400,100,500,200).label("点击我可以修改").point({width:12}).show();
+      var demo8 = new ALine('body');
+      demo8.init({color:'#999',debug:true,canDrag:true,clickCallback:function(){
+          alert("你点击了我,我想说的是，这个可以实现很多标注的功能")
+      }}).coolLine(246,26,581,92).label("你看，这是我标注的标题").point({width:10}).show();
     </script>
   </dd>
   <dd>
