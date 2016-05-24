@@ -242,6 +242,15 @@ var demo5 = new ALine('#demo5');
       demo8.init({color:'#999',debug:true,canDrag:true,clickCallback:function(){
           alert("你点击了我,我想说的是，这个可以实现很多标注的功能")
       }}).coolLine(246,26,581,92).label("你看，这是我标注的标题").point({width:10}).show();
+
+      var demo8 = new ALine('#demo6');
+      demo8.init({color:'#999',debug:true,labelOverStep:false,canDrag:true,callback:function(){
+      $("#demo6_memo4").html("当前创建的类为："+arguments[0]+" , 标签文字为："+$("."+arguments[0]+".line_label").html()+" 绘制时间戳："+(new Date()).valueOf());
+      }}).coolLine(600,100,800,200).label("标签不能拖出去").point({width:12}).show();
+      var demo8 = new ALine('body');
+      demo8.init({color:'#999',debug:true,canDrag:true,clickCallback:function(){
+      alert("你点击了我,我想说的是，这个可以实现很多标注的功能")
+      }}).coolLine(246,26,581,92).label("你看，这是我标注的标题").point({width:10}).show();
     </script>
   </dd>
   <dd>

@@ -67,10 +67,15 @@ function ALine(dom) {
      */
     this.dragObj = '';
     /**
-     * 是否可以画出当前dom外
+     * 线是否可以画出当前dom外
      * @type {boolean}
      */
     this.overStep = false;
+    /**
+     * 标签是否可以拖出当前dom外
+     * @type {boolean}
+     */
+    this.labelOverStep = true;
     /**
      * 绘线后的回调函数
      * @type {string}
@@ -127,6 +132,9 @@ function ALine(dom) {
         if(typeof param.overStep !== "undefined"){
             this.overStep = param.overStep;
         }
+        if(typeof param.labelOverStep !== "undefined"){
+            this.labelOverStep = param.labelOverStep;
+        }
         if(typeof param.canDrag !== "undefined"){
             this.canDrag = param.canDrag;
         }
@@ -165,20 +173,11 @@ function ALine(dom) {
      * @returns {ALine}
      */
     this.drawLine = function (x0, y0, x1, y1) {
-        if(!this.overStep) {
-            if (x0 < 0) x0 = 0;
-            if (x1 < 0) x1 = 0;
-            if (y0 < 0) y0 = 0;
-            if (y1 < 0) y1 = 0;
-            if (x0 > this.maxWidth)x0 = this.maxWidth;
-            if (x1 > this.maxWidth)x1 = this.maxWidth;
-            if (y0 > this.maxHeight)y0 = this.maxHeight;
-            if (y1 > this.maxHeight)y1 = this.maxHeight;
-        }
-        x0 = parseFloat(x0.toFixed(3));
-        y0 = parseFloat(y0.toFixed(3));
-        x1 = parseFloat(x1.toFixed(3));
-        y1 = parseFloat(y1.toFixed(3));
+        var __ret = this._dealMaxWidthHeight(x0, x1, y0, y1);
+        x0 = __ret.x0;
+        x1 = __ret.x1;
+        y0 = __ret.y0;
+        y1 = __ret.y1;
         if(this.start.length === 0){
             this.start = [x0,y0];
             this.stop = [x1,y1];
@@ -236,7 +235,6 @@ function ALine(dom) {
         $(this.dom).mousemove(function(e){
             if(o.draging[o.lineClass]) {
                 var location = o.getMouseLoction(e);
-                //console.info(location);
                 if(o.dragObj === 'start'){
                     if(o.method === 'coolLine') {
                         o.reset(o.lineClass).coolLine(location[0], location[1], o.stop[0], o.stop[1]).point(o.pointParam).show();
@@ -244,6 +242,11 @@ function ALine(dom) {
                         o.reset(o.lineClass).angleLine(location[0], location[1], o.stop[0], o.stop[1]).point(o.pointParam).show();
                     }
                 } else {
+                    console.info("=====",location);
+                    var __ret = o._dealMaxWidthHeightHaveLabel( location[0],location[1]);
+                    location[0] = __ret.x1;
+                    location[1] = __ret.y1;
+                    console.info("-----",location);
                     if(o.method === 'coolLine') {
                         o.reset(o.lineClass).coolLine(o.start[0], o.start[1], location[0], location[1]).point(o.pointParam).show();
                     } else {
@@ -259,7 +262,7 @@ function ALine(dom) {
             o.draging[o.lineClass] = null;
             e.preventDefault();
         });
-    }
+    };
     /**
      * 绘制起点终点的方法
      * @param point
@@ -285,16 +288,15 @@ function ALine(dom) {
         return this;
     };
     /**
-     * 画比较酷的线，斜线和直线
-     *
-     * @param x0  起点x坐标
-     * @param y0  起点y坐标
-     * @param x1  终点x坐标
-     * @param y1  终点y坐标
-     * @returns {ALine}
+     * 处理最大坐标位置
+     * @param x0
+     * @param x1
+     * @param y0
+     * @param y1
+     * @returns {{x0: *, x1: *, y0: *, y1: *}}
+     * @private
      */
-    this.coolLine = function(x0, y0, x1, y1){
-        this.method = 'coolLine';
+    this._dealMaxWidthHeight = function(x0, x1, y0, y1) {
         if(!this.overStep) {
             if (x0 < 0) x0 = 0;
             if (x1 < 0) x1 = 0;
@@ -305,6 +307,55 @@ function ALine(dom) {
             if (y0 > this.maxHeight)y0 = this.maxHeight;
             if (y1 > this.maxHeight)y1 = this.maxHeight;
         }
+        x0 = parseFloat(x0.toFixed(3));
+        y0 = parseFloat(y0.toFixed(3));
+        x1 = parseFloat(x1.toFixed(3));
+        y1 = parseFloat(y1.toFixed(3));
+        //console.info($("."+this.lineClass+".line_label"));
+        return {x0: x0, x1: x1, y0: y0, y1: y1};
+    };
+
+    /**
+     * 处理最大坐标位置,带标签
+     * @param x1
+     * @param y1
+     * @returns {{x0: *, x1: *, y0: *, y1: *}}
+     * @private
+     */
+    this._dealMaxWidthHeightHaveLabel = function( x1, y1) {
+        console.info($("."+this.lineClass+".line_label").length,!this.labelOverStep,"=");
+        if($("."+this.lineClass+".line_label").length > 0 && !this.labelOverStep) {
+            console.info("dododo",this.pointParam,+this.pointParam.width/2+this.pointParam.border)
+            var label = $("." + this.lineClass + ".line_label");
+            var labelWidth = $(label).width()+this.pointParam.width/2+this.pointParam.border+13;
+            var labelHeight = $(label).height()+2;
+            if (x1 < labelWidth) x1 = labelWidth;
+            if (y1 < labelHeight / 2) y1 = labelHeight / 2;
+            if (x1 > this.maxWidth - labelWidth)x1 = this.maxWidth - labelWidth;
+            if (y1 > this.maxHeight - labelHeight / 2)y1 = this.maxHeight - labelHeight / 2;
+        }
+        x1 = parseFloat(x1.toFixed(3));
+        y1 = parseFloat(y1.toFixed(3));
+        //console.info($("."+this.lineClass+".line_label"));
+        return {x1: x1, y1: y1};
+    };
+
+    /**
+     * 画比较酷的线，斜线和直线
+     *
+     * @param x0  起点x坐标
+     * @param y0  起点y坐标
+     * @param x1  终点x坐标
+     * @param y1  终点y坐标
+     * @returns {ALine}
+     */
+    this.coolLine = function(x0, y0, x1, y1){
+        this.method = 'coolLine';
+        var __ret = this._dealMaxWidthHeight(x0, x1, y0, y1);
+        x0 = __ret.x0;
+        x1 = __ret.x1;
+        y0 = __ret.y0;
+        y1 = __ret.y1;
         this.start = [x0,y0];
         this.stop = [x1,y1];
         //要折线
@@ -334,7 +385,7 @@ function ALine(dom) {
         this.html = '';
         this.style = '';
         return this;
-    }
+    };
     /**
      * 直角线
      * @param x0  起点x坐标
@@ -345,16 +396,11 @@ function ALine(dom) {
      */
     this.angleLine = function(x0, y0, x1, y1){
         this.method = 'angleLine';
-        if(!this.overStep) {
-            if (x0 < 0) x0 = 0;
-            if (x1 < 0) x1 = 0;
-            if (y0 < 0) y0 = 0;
-            if (y1 < 0) y1 = 0;
-            if (x0 > this.maxWidth)x0 = this.maxWidth;
-            if (x1 > this.maxWidth)x1 = this.maxWidth;
-            if (y0 > this.maxHeight)y0 = this.maxHeight;
-            if (y1 > this.maxHeight)y1 = this.maxHeight;
-        }
+        var __ret = this._dealMaxWidthHeight(x0, x1, y0, y1);
+        x0 = __ret.x0;
+        x1 = __ret.x1;
+        y0 = __ret.y0;
+        y1 = __ret.y1;
         this.start = [x0,y0];
         this.stop = [x1,y1];
         var x = Math.abs(x0-x1);
@@ -380,12 +426,12 @@ function ALine(dom) {
         param = param || {};
         var height = typeof param.height !== "undefined" ? param.height :20;
         var style = typeof param.style !== "undefined" ? param.style :'';
-        this.labelStyle = '.'+this.lineClass+'.line_label{height:'+height+'px;line-height:'+height+'px;background-color:#fff;border-radius:3px;border:1px solid #efefef;padding:0 5px;'+style+'}';
+        this.labelStyle = '.'+this.lineClass+'.line_label{height:'+height+'px;line-height:'+height+'px;background-color:#fff;border-radius:3px;border:1px solid #efefef;padding:0 5px;'+style+';white-space:nowrap;}';
         if($("."+this.lineClass+".line_label").length===0){
             this.html += " <div class='" + this.lineClass +this.appendClass+ " line_label' style= 'display: none;'>"+title+"</div> ";
         }
         return this;
-    }
+    };
     /**
      * 修改标签文字
      * @param lineClass
@@ -395,7 +441,7 @@ function ALine(dom) {
         $("."+lineClass+".line_label").html(title);
         var info = this._getInfo(lineClass);
         this._setLablePosition(lineClass,info[0],info[1]);
-    }
+    };
     /**
      * 显示绘线
      */
@@ -444,7 +490,7 @@ function ALine(dom) {
             top: top,
         });
         return this;
-    }
+    };
     /**
      * 获取相关坐标点信息
      *
@@ -460,9 +506,9 @@ function ALine(dom) {
         var startStop = {
             start : [parseInt($("." + lineClass + ".start_point").css("left")) + correcting, parseInt($("." + lineClass + ".start_point").css("top")) + correcting],
             stop : [parseInt($("." + lineClass + ".stop_point").css("left")) + correcting, parseInt($("." + lineClass + ".stop_point").css("top")) + correcting]
-    }
+        }
         return [pointParam,startStop];
-    }
+    };
 
     /**
      * 生成随机数
@@ -485,18 +531,6 @@ function ALine(dom) {
             }
         }
         return str;
-    };
-    /**
-     * 清除某个class的线
-     * @param clearClass
-     */
-    this.clear = function (clearClass) {
-        clearClass = clearClass || this.lineClass
-        $("." + clearClass).remove();
-        $(".style" + clearClass).remove();
-        this.html = '';
-        this.style = '';
-        this.lineClass = '';
     };
     /**
      * 获取鼠标坐标
