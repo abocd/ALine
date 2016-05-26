@@ -533,6 +533,18 @@ function ALine(dom) {
         return str;
     };
     /**
+     * 清除某个class的线及标签
+     * @param clearClass
+     */
+    this.clear = function (clearClass) {
+        clearClass = clearClass || this.lineClass
+        $("." + clearClass).remove();
+        $(".style" + clearClass).remove();
+        this.html = '';
+        this.style = '';
+        this.lineClass = '';
+    };
+    /**
      * 获取鼠标坐标
      * @param e
      * @returns {*[]}
