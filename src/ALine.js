@@ -158,7 +158,7 @@ function ALine(dom) {
         }
         this.lineClass =  oldClass;
         this.html = '';
-        this.initStyle = '.'+this.lineClass+'{position:absolute;line-height:1px;overflow:hidden;z-index:99998}.'+this.lineClass+'.a_p{width:1px;height:1px;}';
+        this.initStyle = '.'+this.lineClass+'{position:absolute;line-height:1px;overflow:hidden;z-index:99998}.'+this.lineClass+'.al_one{width:1px;height:1px;}';
         this.initStyle += '.' + this.lineClass + '{background-color:' + color + '}';
         this.appendClass = ' ' + (appendClass || '');
         this.callback = typeof param.callback !== "undefined" ?param.callback : '';
@@ -226,7 +226,7 @@ function ALine(dom) {
                 var p = i / l;
                 var px = parseFloat((x0 + lx * p).toFixed(3));
                 var py = parseFloat((y0 + ly * p).toFixed(3));
-                rs[rs.length] = " <div class='a_p " + this.lineClass +this.appendClass+ extClass + "' style= 'top: " + py + "px;left: " + px + "px;'></div> ";
+                rs[rs.length] = " <div class='al_one " + this.lineClass +this.appendClass+ extClass + "' style= 'top: " + py + "px;left: " + px + "px;'></div> ";
             }
             rs = rs.join(" ");
         }
