@@ -290,6 +290,27 @@ var demo6 = new ALine('#demo6');
         </pre>
   </dd>
 </dl>
+<dl>
+    <dt>
+        演示7.多边形，可拖动
+    </dt>
+    <dd>
+        <div id="demo7" class="demo"></div>
+        <script type="text/javascript">
+            var demo7 = new ALine('#demo7');
+            demo7.init({canDrag:true,callback:function(){
+                console.info(arguments[1]);
+            }}).polygon(7).point({bordercolor:" #333",border:2,bgcolor:"#41addd"}).show();
+        </script>
+    </dd>
+    <dd>
+        <h5>代码</h5>
+        <pre>
+var demo7 = new ALine('#demo7');
+            demo7.init({canDrag:true}).polygon(4).point({bordercolor:" #333",border:2,bgcolor:"#41addd"}).show();
+        </pre>
+    </dd>
+</dl>
 
 </body>
 </html>
