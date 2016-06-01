@@ -299,6 +299,10 @@ var demo6 = new ALine('#demo6');
         <script type="text/javascript">
             var demo7 = new ALine('#demo7');
             demo7.init({canDrag:true,callback:function(){
+            console.info(arguments[1]);
+            }}).polygon([[200,14],[400,250],[100,200]]).point({bordercolor:" #333",border:2,bgcolor:"#41addd"}).show();
+            var demo7 = new ALine('#demo7');
+            demo7.init({canDrag:true,callback:function(){
                 console.info(arguments[1]);
             }}).polygon(7).point({bordercolor:" #333",border:2,bgcolor:"#41addd"}).show();
         </script>
