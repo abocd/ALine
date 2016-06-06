@@ -171,9 +171,9 @@ function ALine(dom) {
             var clickCallback = this.clickCallback;
             $("body").delegate("."+this.lineClass+".al_label","click",function(){
                 var allclass = $(this).attr("class");
-                var m = allclass.match(/al_(\w+)/);
+                var m = allclass.match(/aline_(\w+)/);
                 if(m!== null && m.length === 2) {
-                    clickCallback.call(this, "al_"+m[1]);
+                    clickCallback.call(this, "aline_"+m[1]);
                 }
             });
         }
