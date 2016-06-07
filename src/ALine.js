@@ -142,7 +142,7 @@ function ALine(dom) {
     this.init = function (param) { //color,oldClass,appendClass
         param = param || {};
         var color = param.color || '#666';
-        var oldClass = param.oldClass || 'al_' +this.rand(6);
+        var oldClass = param.oldClass || 'aline_' +this.rand(6);
         var appendClass = param.appendClass || '';
         if(typeof param.overStep !== "undefined"){
             this.overStep = param.overStep;
@@ -158,7 +158,7 @@ function ALine(dom) {
         }
         this.lineClass =  oldClass;
         this.html = '';
-        this.initStyle = '.'+this.lineClass+'{position:absolute;line-height:1px;overflow:hidden;z-index:99998}.'+this.lineClass+'.al_one{width:1px;height:1px;}';
+        this.initStyle = '.'+this.lineClass+'{position:absolute;line-height:1px;overflow:hidden;z-index:99998}.'+this.lineClass+'.aline_one{width:1px;height:1px;}';
         this.initStyle += '.' + this.lineClass + '{background-color:' + color + '}';
         this.appendClass = ' ' + (appendClass || '');
         this.callback = typeof param.callback !== "undefined" ?param.callback : '';
@@ -169,9 +169,9 @@ function ALine(dom) {
         }
         if(typeof this.clickCallback === "function"){
             var clickCallback = this.clickCallback;
-            $("body").delegate("."+this.lineClass+".al_label","click",function(){
+            $("body").delegate("."+this.lineClass+".aline_label","click",function(){
                 var allclass = $(this).attr("class");
-                var m = allclass.match(/aline_(\w+)/);
+                var m = allclass.match(/aline_(\w{6})/);
                 if(m!== null && m.length === 2) {
                     clickCallback.call(this, "aline_"+m[1]);
                 }
@@ -226,7 +226,7 @@ function ALine(dom) {
                 var p = i / l;
                 var px = parseFloat((x0 + lx * p).toFixed(3));
                 var py = parseFloat((y0 + ly * p).toFixed(3));
-                rs[rs.length] = " <div class='al_one " + this.lineClass +this.appendClass+ extClass + "' style= 'top: " + py + "px;left: " + px + "px;'></div> ";
+                rs[rs.length] = " <div class='aline_one " + this.lineClass +this.appendClass+ extClass + "' style= 'top: " + py + "px;left: " + px + "px;'></div> ";
             }
             rs = rs.join(" ");
         }
@@ -239,7 +239,7 @@ function ALine(dom) {
      */
     this.drag = function(){
         var o = this;
-        $("."+this.lineClass+".al_point").live("mousedown",function(e){
+        $("."+this.lineClass+".aline_point").live("mousedown",function(e){
             o.draging[o.lineClass] = this;
             if($(this).hasClass("polygon_point")){
                 o.dragObj = 'polygon';
@@ -308,7 +308,7 @@ function ALine(dom) {
         this.pointParam.border =typeof this.pointParam !== "undefined" && typeof this.pointParam.border !== "undefined" ? this.pointParam.border : 1;
         this.pointParam.bgcolor = typeof this.pointParam !== "undefined" && typeof this.pointParam.bgcolor !== "undefined" ?this.pointParam.bgcolor : '#ccc';
         this.pointParam.bordercolor =typeof this.pointParam !== "undefined" && typeof this.pointParam.bordercolor !== "undefined" ? this.pointParam.bordercolor : '#efefef';
-        this.pointStyle = '.'+this.lineClass+'.al_point{width:'+this.pointParam.width+'px !important;height:'+this.pointParam.width+'px !important;z-index:99999;border-radius:'+(this.pointParam.width*1+this.pointParam.border*1)+'px;border:'+this.pointParam.border+'px solid '+this.pointParam.bordercolor+';background-color:'+this.pointParam.bgcolor+'  !important}';
+        this.pointStyle = '.'+this.lineClass+'.aline_point{width:'+this.pointParam.width+'px !important;height:'+this.pointParam.width+'px !important;z-index:99999;border-radius:'+(this.pointParam.width*1+this.pointParam.border*1)+'px;border:'+this.pointParam.border+'px solid '+this.pointParam.bordercolor+';background-color:'+this.pointParam.bgcolor+'  !important}';
         if(this.method !== 'polygon') {
             this._startEndPoint();
         } else {
@@ -326,12 +326,12 @@ function ALine(dom) {
         if (this.start.length) {
             x = this.start[0].toFixed(3) - (this.pointParam.width + this.pointParam.border * 1) / 2;
             y = this.start[1].toFixed(3) - (this.pointParam.width + this.pointParam.border * 1) / 2;
-            this.html += " <div class='" + this.lineClass + this.appendClass + " al_point start_point' style= 'top: " + y + "px;left: " + x + "px;'></div> ";
+            this.html += " <div class='" + this.lineClass + this.appendClass + " aline_point start_point' style= 'top: " + y + "px;left: " + x + "px;'></div> ";
         }
         if (this.stop.length) {
             x = this.stop[0].toFixed(3) - (this.pointParam.width + this.pointParam.border * 1) / 2;
             y = this.stop[1].toFixed(3) - (this.pointParam.width + this.pointParam.border * 1) / 2;
-            this.html += " <div class='" + this.lineClass + this.appendClass + " al_point stop_point' style= 'top: " + y + "px;left: " + x + "px;'></div> ";
+            this.html += " <div class='" + this.lineClass + this.appendClass + " aline_point stop_point' style= 'top: " + y + "px;left: " + x + "px;'></div> ";
         }
     }
 
@@ -344,7 +344,9 @@ function ALine(dom) {
         for(var i in this.polygonPoint){
             x = this.polygonPoint[i][0].toFixed(3) - (this.pointParam.width + this.pointParam.border * 1) / 2;
             y = this.polygonPoint[i][1].toFixed(3) - (this.pointParam.width + this.pointParam.border * 1) / 2;
-            this.html += " <div class='" + this.lineClass + this.appendClass + " al_point polygon_point' data-id='"+i+"' style= 'top: " + y + "px;left: " + x + "px;'></div> ";
+            x = x.toFixed(3);
+            y = y.toFixed(3);
+            this.html += " <div class='" + this.lineClass + this.appendClass + " aline_point polygon_point' data-id='"+i+"' style= 'top: " + y + "px;left: " + x + "px;'></div> ";
         }
     }
     /**
@@ -475,9 +477,11 @@ function ALine(dom) {
             if (x > this.maxWidth)x = this.maxWidth;
             if (y > this.maxHeight)y = this.maxHeight;
         }
+        x = parseFloat(x);
+        y = parseFloat(y);
         x = parseFloat(x.toFixed(3));
         y = parseFloat(y.toFixed(3));
-        //console.info($("."+this.lineClass+".al_label"));
+        //console.info($("."+this.lineClass+".aline_label"));
         return {x: x, y: y};
     };
 
@@ -489,10 +493,10 @@ function ALine(dom) {
      * @private
      */
     this._dealMaxWidthHeightHaveLabel = function( x1, y1) {
-        //console.info($("."+this.lineClass+".al_label").length,!this.labelOverStep,"=");
-        if($("."+this.lineClass+".al_label").length > 0 && !this.labelOverStep) {
+        //console.info($("."+this.lineClass+".aline_label").length,!this.labelOverStep,"=");
+        if($("."+this.lineClass+".aline_label").length > 0 && !this.labelOverStep) {
             console.info("dododo",this.pointParam,+this.pointParam.width/2+this.pointParam.border)
-            var label = $("." + this.lineClass + ".al_label");
+            var label = $("." + this.lineClass + ".aline_label");
             var labelWidth = $(label).width()+this.pointParam.width/2+this.pointParam.border+13;
             var labelHeight = $(label).height()+2;
             if (x1 < labelWidth) x1 = labelWidth;
@@ -502,7 +506,7 @@ function ALine(dom) {
         }
         x1 = parseFloat(x1.toFixed(3));
         y1 = parseFloat(y1.toFixed(3));
-        //console.info($("."+this.lineClass+".al_label"));
+        //console.info($("."+this.lineClass+".aline_label"));
         return {x1: x1, y1: y1};
     };
 
@@ -548,7 +552,7 @@ function ALine(dom) {
      */
     this.reset = function(resetClass){
         resetClass = resetClass || this.lineClass;
-        $("." + resetClass+":not(.al_label)").remove();
+        $("." + resetClass+":not(.aline_label)").remove();
         $(".style" + resetClass).remove();
         this.html = '';
         this.style = '';
@@ -596,9 +600,9 @@ function ALine(dom) {
         param = param || {};
         var height = typeof param.height !== "undefined" ? param.height :20;
         var style = typeof param.style !== "undefined" ? param.style :'';
-        this.labelStyle = '.'+this.lineClass+'.al_label{height:'+height+'px;line-height:'+height+'px;background-color:#fff;border-radius:3px;border:1px solid #efefef;padding:0 5px;'+style+';white-space:nowrap;}';
-        if($("."+this.lineClass+".al_label").length===0){
-            this.html += " <div class='" + this.lineClass +this.appendClass+ " al_label' style= 'display: none;'>"+title+"</div> ";
+        this.labelStyle = '.'+this.lineClass+'.aline_label{height:'+height+'px;line-height:'+height+'px;background-color:#fff;border-radius:3px;border:1px solid #efefef;padding:0 5px;'+style+';white-space:nowrap;}';
+        if($("."+this.lineClass+".aline_label").length===0){
+            this.html += " <div class='" + this.lineClass +this.appendClass+ " aline_label' style= 'display: none;'>"+title+"</div> ";
         }
         return this;
     };
@@ -608,7 +612,7 @@ function ALine(dom) {
      * @param title
      */
     this.setLabelTitle = function(lineClass,title){
-        $("."+lineClass+".al_label").html(title);
+        $("."+lineClass+".aline_label").html(title);
         var info = this._getInfo(lineClass);
         this._setLablePosition(lineClass,info[0],info[1]);
     };
@@ -622,7 +626,7 @@ function ALine(dom) {
         } else {
             $(this.dom).append('<style class="style' + this.lineClass + '">' + this.initStyle + this.style + this.pointStyle + this.labelStyle + '</style>');
         }
-        if($("."+this.lineClass+":not(.al_label)").length>0){
+        if($("."+this.lineClass+":not(.aline_label)").length>0){
             if(this.dragObj === 'polygon'){
                 $(this.dom).append(this.html);
             } else {
@@ -631,9 +635,9 @@ function ALine(dom) {
         } else {
             $(this.dom).append(this.html);
         }
-        if($("."+this.lineClass+".al_label").length && this.start.length>0 && this.stop.length>0) {
+        if($("."+this.lineClass+".aline_label").length && this.start.length>0 && this.stop.length>0) {
             this._setLablePosition(this.lineClass,this.pointParam,{start:this.start,stop:this.stop});
-            $("." + this.lineClass + ".al_label").show();
+            $("." + this.lineClass + ".aline_label").show();
         }
         if(typeof this.callback === "function"){
             if(this.method == 'polygon'){
@@ -655,8 +659,8 @@ function ALine(dom) {
     this._setLablePosition = function(lineClass,pointParam,startStop){
         var left = startStop.stop[0];
         var top = startStop.stop[1];
-        var lable_width = $("."+lineClass+".al_label").width();
-        var lable_height = $("."+lineClass+".al_label").height();
+        var lable_width = $("."+lineClass+".aline_label").width();
+        var lable_height = $("."+lineClass+".aline_label").height();
         if(startStop.start[0] > startStop.stop[0]){
             //left =
             left -= (lable_width + (pointParam.width+pointParam.border)/2+13);
@@ -664,7 +668,7 @@ function ALine(dom) {
             left += ((pointParam.width+pointParam.border)/2+3);
         }
         top -= lable_height/2;
-        $("." + lineClass + ".al_label").css({
+        $("." + lineClass + ".aline_label").css({
             left: left,
             top: top,
         });
@@ -678,8 +682,8 @@ function ALine(dom) {
      */
     this._getInfo = function(lineClass){
         var pointParam = {
-            width:parseInt($("."+lineClass+".al_point").width()),
-            border:parseInt($("."+lineClass+".al_point").css("borderWidth"))
+            width:parseInt($("."+lineClass+".aline_point").width()),
+            border:parseInt($("."+lineClass+".aline_point").css("borderWidth"))
         };
         var correcting = (pointParam.width+pointParam.border*2)/2;
         var startStop = {

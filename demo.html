@@ -207,50 +207,47 @@ var demo5 = new ALine('#demo5');
       var demo6 = new ALine('#demo6');
       //横线
       demo6.init({color:'#666',canDrag:true,callback:function(){
-              $("#demo6_memo1").html("当前创建的类为："+arguments[0]+" , 标签文字为："+$("."+arguments[0]+".line_label").html()+" 绘制时间戳："+(new Date()).valueOf());
+              $("#demo6_memo1").html("当前创建的类为："+arguments[0]+" , 标签文字为："+$("."+arguments[0]+".aline_label").html()+" 绘制时间戳："+(new Date()).valueOf());
               },clickCallback:function(){
-        $("#demo6_click").html("您点击了类："+arguments[0]+" , 标签文字为："+$("."+arguments[0]+".line_label").html())
+        $("#demo6_click").html("您点击了类："+arguments[0]+" , 标签文字为："+$("."+arguments[0]+".aline_label").html())
       }
       }).angleLine(50,150,100,150).label("横线").point().show();
       //竖线
       var demo6 = new ALine('#demo6');
       demo6.init({color:'#777',canDrag:true,callback:function(){
-      $("#demo6_memo2").html("当前创建的类为："+arguments[0]+" , 标签文字为："+$("."+arguments[0]+".line_label").html()+" 绘制时间戳："+(new Date()).valueOf());
+      $("#demo6_memo2").html("当前创建的类为："+arguments[0]+" , 标签文字为："+$("."+arguments[0]+".aline_label").html()+" 绘制时间戳："+(new Date()).valueOf());
       },clickCallback:function(){
-        $("#demo6_click").html("您点击了类："+arguments[0]+" , 标签文字为："+$("."+arguments[0]+".line_label").html())
+        $("#demo6_click").html("您点击了类："+arguments[0]+" , 标签文字为："+$("."+arguments[0]+".aline_label").html())
       }}).angleLine(150,50,150,250).label("竖线").point({width:8}).show();
       //直角
       var demo6 = new ALine('#demo6');
       demo6.init({color:'#888',canDrag:true,callback:function(){
-      $("#demo6_memo3").html("当前创建的类为："+arguments[0]+" , 标签文字为："+$("."+arguments[0]+".line_label").html()+" 绘制时间戳："+(new Date()).valueOf());
+      $("#demo6_memo3").html("当前创建的类为："+arguments[0]+" , 标签文字为："+$("."+arguments[0]+".aline_label").html()+" 绘制时间戳："+(new Date()).valueOf());
       },clickCallback:function(){
-        $("#demo6_click").html("您点击了类："+arguments[0]+" , 标签文字为："+$("."+arguments[0]+".line_label").html())
+        $("#demo6_click").html("您点击了类："+arguments[0]+" , 标签文字为："+$("."+arguments[0]+".aline_label").html())
       }}).angleLine(250,100,350,200).label("直角").point({width:10}).show();
       //曲线
       var demo7 = new ALine('#demo6');
       demo7.init({color:'#999',debug:true,canDrag:true,callback:function(){
-      $("#demo6_memo4").html("当前创建的类为："+arguments[0]+" , 标签文字为："+$("."+arguments[0]+".line_label").html()+" 绘制时间戳："+(new Date()).valueOf());
+      $("#demo6_memo4").html("当前创建的类为："+arguments[0]+" , 标签文字为："+$("."+arguments[0]+".aline_label").html()+" 绘制时间戳："+(new Date()).valueOf());
       },clickCallback:function(){
-        $("#demo6_click").html("您点击了类："+arguments[0]+" , 标签文字为："+$("."+arguments[0]+".line_label").html());
-          var res = prompt("您打算修改标签"+arguments[0]+"为什么内容？",$("."+arguments[0]+".line_label").html());
+        $("#demo6_click").html("您点击了类："+arguments[0]+" , 标签文字为："+$("."+arguments[0]+".aline_label").html());
+          var res = prompt("您打算修改标签"+arguments[0]+"为什么内容？",$("."+arguments[0]+".aline_label").html());
           if(!res){
-              res = $("."+arguments[0]+".line_label").html();
+              res = $("."+arguments[0]+".aline_label").html();
           }
           demo7.setLabelTitle(arguments[0],res);
       }}).coolLine(400,100,500,200).label("点击我可以修改").point({width:12}).show();
       var demo8 = new ALine('body');
+
       demo8.init({color:'#999',debug:true,canDrag:true,clickCallback:function(){
           alert("你点击了我,我想说的是，这个可以实现很多标注的功能")
       }}).coolLine(246,26,581,92).label("你看，这是我标注的标题").point({width:10}).show();
 
       var demo8 = new ALine('#demo6');
       demo8.init({color:'#999',debug:true,labelOverStep:false,canDrag:true,callback:function(){
-      $("#demo6_memo4").html("当前创建的类为："+arguments[0]+" , 标签文字为："+$("."+arguments[0]+".line_label").html()+" 绘制时间戳："+(new Date()).valueOf());
+      $("#demo6_memo4").html("当前创建的类为："+arguments[0]+" , 标签文字为："+$("."+arguments[0]+".aline_label").html()+" 绘制时间戳："+(new Date()).valueOf());
       }}).coolLine(600,100,800,200).label("标签不能拖出去").point({width:12}).show();
-      var demo8 = new ALine('body');
-      demo8.init({color:'#999',debug:true,canDrag:true,clickCallback:function(){
-      alert("你点击了我,我想说的是，这个可以实现很多标注的功能")
-      }}).coolLine(246,26,581,92).label("你看，这是我标注的标题").point({width:10}).show();
     </script>
   </dd>
   <dd>
@@ -259,32 +256,32 @@ var demo5 = new ALine('#demo5');
 var demo6 = new ALine('#demo6');
       //横线
       demo6.init({color:'#666',canDrag:true,callback:function(){
-            $("#demo6_memo1").html("当前创建的类为："+arguments[0]+" , 标签文字为："+$("."+arguments[0]+".line_label").html()+" 绘制时间戳："+(new Date()).valueOf());
+            $("#demo6_memo1").html("当前创建的类为："+arguments[0]+" , 标签文字为："+$("."+arguments[0]+".aline_label").html()+" 绘制时间戳："+(new Date()).valueOf());
             },clickCallback:function(){
-        $("#demo6_click").html("您点击了类："+arguments[0]+" , 标签文字为："+$("."+arguments[0]+".line_label").html())
+        $("#demo6_click").html("您点击了类："+arguments[0]+" , 标签文字为："+$("."+arguments[0]+".aline_label").html())
       }
       }).angleLine(50,150,100,150).label("横线").point().show();
       //竖线
       var demo6 = new ALine('#demo6');
       demo6.init({color:'#777',canDrag:true,callback:function(){
-            $("#demo6_memo2").html("当前创建的类为："+arguments[0]+" , 标签文字为："+$("."+arguments[0]+".line_label").html()+" 绘制时间戳："+(new Date()).valueOf());
+            $("#demo6_memo2").html("当前创建的类为："+arguments[0]+" , 标签文字为："+$("."+arguments[0]+".aline_label").html()+" 绘制时间戳："+(new Date()).valueOf());
             },clickCallback:function(){
-        $("#demo6_click").html("您点击了类："+arguments[0]+" , 标签文字为："+$("."+arguments[0]+".line_label").html())
+        $("#demo6_click").html("您点击了类："+arguments[0]+" , 标签文字为："+$("."+arguments[0]+".aline_label").html())
       }}).angleLine(150,50,150,250).label("竖线").point({width:8}).show();
       //直角
       var demo6 = new ALine('#demo6');
       demo6.init({color:'#888',canDrag:true,callback:function(){
-            $("#demo6_memo3").html("当前创建的类为："+arguments[0]+" , 标签文字为："+$("."+arguments[0]+".line_label").html()+" 绘制时间戳："+(new Date()).valueOf());
+            $("#demo6_memo3").html("当前创建的类为："+arguments[0]+" , 标签文字为："+$("."+arguments[0]+".aline_label").html()+" 绘制时间戳："+(new Date()).valueOf());
             },clickCallback:function(){
-        $("#demo6_click").html("您点击了类："+arguments[0]+" , 标签文字为："+$("."+arguments[0]+".line_label").html())
+        $("#demo6_click").html("您点击了类："+arguments[0]+" , 标签文字为："+$("."+arguments[0]+".aline_label").html())
       }}).angleLine(250,100,350,200).label("直角").point({width:10}).show();
       //曲线
       var demo6 = new ALine('#demo6');
       demo6.init({color:'#999',debug:true,canDrag:true,callback:function(){
-            $("#demo6_memo4").html("当前创建的类为："+arguments[0]+" , 标签文字为："+$("."+arguments[0]+".line_label").html()+" 绘制时间戳："+(new Date()).valueOf());
+            $("#demo6_memo4").html("当前创建的类为："+arguments[0]+" , 标签文字为："+$("."+arguments[0]+".aline_label").html()+" 绘制时间戳："+(new Date()).valueOf());
             },clickCallback:function(){
-        $("#demo6_click").html("您点击了类："+arguments[0]+" , 标签文字为："+$("."+arguments[0]+".line_label").html());
-          var res = prompt("您打算修改标签"+arguments[0]+"为什么内容？",$("."+arguments[0]+".line_label").html());
+        $("#demo6_click").html("您点击了类："+arguments[0]+" , 标签文字为："+$("."+arguments[0]+".aline_label").html());
+          var res = prompt("您打算修改标签"+arguments[0]+"为什么内容？",$("."+arguments[0]+".aline_label").html());
           demo6.setLabelTitle(arguments[0],res);
       }}).coolLine(400,100,500,200).label("点击我可以修改").point({width:12}).show();
         </pre>
